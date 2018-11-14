@@ -533,7 +533,7 @@ module Pod
               spec_consumer = test_spec.consumer(target.platform)
               test_type = spec_consumer.test_type
               path = target.xcconfig_path("#{test_type.capitalize}-#{target.subspec_label(test_spec)}")
-              update_changed_file(Target::BuildSettings::PodTargetSettings.new(target, test_spec), path)
+              update_changed_file(target.build_settings_for_spec(test_spec), path)
               test_xcconfig_file_ref = add_file_to_support_group(path)
 
               test_native_target = test_native_target_from_spec_consumer(spec_consumer, test_native_targets)
@@ -608,7 +608,7 @@ module Pod
             target.app_specs.each do |app_spec|
               spec_consumer = app_spec.consumer(target.platform)
               path = target.xcconfig_path(target.subspec_label(app_spec))
-              update_changed_file(Target::BuildSettings::PodTargetSettings.new(target, app_spec), path)
+              update_changed_file(target.build_settings_for_spec(app_spec), path)
               app_xcconfig_file_ref = add_file_to_support_group(path)
 
               app_native_target = app_native_target_from_spec_consumer(spec_consumer, app_native_targets)
